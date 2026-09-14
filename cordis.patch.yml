@@ -1,0 +1,39 @@
+# dsh-momo-learning — the 墨墨学习 mirror (MCP server) plus its daily-learning
+# skill, as one installable DeepSeek Harness bundle layer.
+#
+# Both rows are additive: this layer owns them, so no row from `dsh-base` or any
+# other bundle is overridden and a user's own patch file can still address
+# either row by id.
+#
+# Load order carries no semantics here; the injection does. The first row
+# publishes `momoLearningPaths` (the paths of the installed package, resolved
+# from the plugin module's own location), and the second row declares it in
+# `inject`. The Loader mounts every row, waits for each row's injections, and
+# only then evaluates that row's `!!js` config — so the MCP row's `args`/`cwd`
+# read real paths instead of the profile directory `baseUrl` resolves to.
+
+- insert:
+    # The package's own plugin: registers the `momo-daily-learning` skill and
+    # publishes `momoLearningPaths` for the MCP row below.
+    - id: momo-learning
+      name: 'dsh-momo-learning'
+
+    # Generic MCP bridge pointed at the bundled stdio server. Its tools appear
+    # to the model as `mcp__maimemo__<tool>`.
+    - id: momo-learning-mcp
+      name: '@deepseek-ai/dsh-mcp-client'
+      inject: [momoLearningPaths]
+      config:
+        serverName: maimemo
+        transport: stdio
+        command: !!js process.execPath
+        args:
+          - !!js ctx.momoLearningPaths.serverScript
+        cwd: !!js ctx.momoLearningPaths.serverDir
+        # The mirror's slowest tools walk a paged upstream API with a 10s
+        # per-request timeout and two attempts; the 60s bridge default is kept
+        # explicit so a raised per-request timeout has room above it.
+        toolCallTimeoutMs: 60000
+        # A missing or crashed server must not abort the whole harness: the
+        # tools simply do not appear and the reason is logged.
+        failOnStartupError: false

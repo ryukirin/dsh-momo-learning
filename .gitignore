@@ -1,0 +1,12 @@
+# The MCP server's runtime dependencies: a fresh clone restores them with
+# `npm run mcp:install` from this directory. `mcp-server/dist` is NOT ignored —
+# it is the compiled server the plugin runs, so an install needs no build step.
+node_modules/
+
+# Nothing in this package ships credentials or local data, and neither should a
+# working copy.
+.env*
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.log

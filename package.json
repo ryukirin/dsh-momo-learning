@@ -1,0 +1,47 @@
+{
+  "name": "dsh-momo-learning",
+  "version": "0.1.0",
+  "description": "DeepSeek Harness plugin bundle: the 墨墨学习 mirror MCP server (mcp__maimemo__*) plus the momo-daily-learning skill",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./mcp-server/*": "./mcp-server/*",
+    "./skills/*": "./skills/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "cordis.patch.yml",
+    "verify.mjs",
+    "skills",
+    "mcp-server/src",
+    "mcp-server/dist",
+    "mcp-server/tests",
+    "mcp-server/package.json",
+    "mcp-server/tsconfig.json",
+    "mcp-server/README.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "credential": "node mcp-server/dist/auth/credential-cli.js",
+    "migrate-legacy": "node mcp-server/dist/migrate-legacy.js",
+    "mcp:install": "npm --prefix mcp-server install",
+    "mcp:build": "npm --prefix mcp-server run build",
+    "mcp:typecheck": "npm --prefix mcp-server run typecheck",
+    "mcp:test": "npm --prefix mcp-server test"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/<your-account>/dsh-momo-learning.git"
+  },
+  "keywords": ["dsh-plugin", "deepseek-harness", "maimemo"]
+}

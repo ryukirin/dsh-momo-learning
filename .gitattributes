@@ -1,0 +1,10 @@
+# Normalize line endings to LF in the repository and in working copies, so a
+# Windows checkout and a Linux one produce identical diffs. The published files
+# are already LF-only and free of a BOM.
+* text=auto eol=lf
+
+# Binary assets, if any are ever added, must not be text-normalized.
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary

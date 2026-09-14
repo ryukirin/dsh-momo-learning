@@ -1,0 +1,12 @@
+# `dist/` is NOT ignored here: this copy ships the compiled server as the
+# plugin's runtime artifact, so `node dsh-momo-learning/mcp-server/dist/server.js`
+# works straight from an install. `node_modules/` IS ignored — the checkout you
+# received has it pre-installed, and a fresh clone restores it with
+# `npm run mcp:install` from the bundle root.
+node_modules/
+coverage/
+*.log
+.env*
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
