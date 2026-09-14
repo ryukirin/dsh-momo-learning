@@ -227,7 +227,7 @@ npm run credential -- status
 | `cordis.patch.yml` | bundle 的 patch 层：插入本包自己的插件行，以及一行指向本包 MCP 服务的 `@deepseek-ai/dsh-mcp-client` |
 | `index.js` | 插件本体：注册 `momo-daily-learning` Skill，并把本包路径作为 `momoLearningPaths` 服务发布出去 |
 | `skills/momo-daily-learning/SKILL.md` | Skill 原文 |
-| `mcp-server/` | MCP 服务本体（`src`、`dist`、`tests`、依赖）。源自另一个项目，但已按本插件做过改动：凭证服务名与数据目录改成本插件的命名，并新增了迁移脚本 |
+| `mcp-server/` | MCP 服务本体：一个独立的 TypeScript 子项目（自带 `package.json`、测试与 README），依赖与构建都收在这一层里。凭证服务名与数据目录用的是本插件的命名，另有一个从旧命名迁移的脚本 |
 | `verify.mjs` | 自检脚本：合成同一套组合并断言 Skill 与 19 个工具都在册 |
 | `LICENSE` | MIT |
 
@@ -273,7 +273,6 @@ dsh plugin --profile <profile> remove dsh-momo-learning
 - 全量回填覆盖的是**计划内的词**。墨墨没有按历史日期取当日词表的接口，所以开始使用之前的逐日清单补不回来；可靠的分日历史从开始每天存快照那天起积累。
 - 全量回填后新增进计划的词，要等下一次全量回填或它们出现在某天词表里（增量刷新）才会进镜像。
 - `find_similar_words` 对多词短语偏弱（见上文）。
-- 未包含原项目的 speckit 相关内容（`.specify/`、`specs/`、`.agents/skills/speckit-*`）。
 
 ## 免责声明
 
