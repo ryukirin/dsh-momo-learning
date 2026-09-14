@@ -43,5 +43,12 @@
     "type": "git",
     "url": "git+https://github.com/<your-account>/dsh-momo-learning.git"
   },
-  "keywords": ["dsh-plugin", "deepseek-harness", "maimemo"]
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "mcp",
+    "model-context-protocol",
+    "maimemo",
+    "spaced-repetition"
+  ]
 }
